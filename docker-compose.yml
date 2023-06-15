@@ -1,5 +1,6 @@
 services:
   nginx:
+    image: digimarket-nginx:v1
     build: 
       context: ./
       dockerfile: ./nginx/Dockerfile
@@ -15,7 +16,7 @@ services:
     volumes:
       - ./nginx/log:/var/log/nginx 
       - ./nginx/nginx.conf:/etc/nginx/main.conf
-      - ./src/upload/:/statics/upload
+      - ./src/statics/:/statics
     environment:
       - NGINX_PORT=${NGINX_PORT}
       - PANEL_ADMIN_PORT=${PANEL_ADMIN_PORT}
@@ -33,6 +34,7 @@ services:
     ports:
       - "127.0.0.1:${MYSQL_PORT}:${MYSQL_PORT}"
   panel-admin:
+    image: digimarket-panel-admin:v1
     build:
       context: ./
       dockerfile: ./src/Dockerfile
@@ -51,3 +53,5 @@ services:
     command: npm run serve         
 networks:
   digimarket:
+    name: digimarket 
+    driver: digimarket
