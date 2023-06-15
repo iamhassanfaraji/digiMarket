@@ -1,0 +1,53 @@
+services:
+  nginx:
+    build: 
+      context: ./
+      dockerfile: ./nginx/Dockerfile
+    container_name: nginx
+    restart: always
+    depends_on:
+      - panel-admin
+      - mysql
+    networks: 
+      - digimarket
+    ports:
+      - "127.0.0.1:${NGINX_PORT}:${NGINX_PORT}"
+    volumes:
+      - ./nginx/log:/var/log/nginx 
+      - ./nginx/nginx.conf:/etc/nginx/main.conf
+      - ./src/upload/:/statics/upload
+    environment:
+      - NGINX_PORT=${NGINX_PORT}
+      - PANEL_ADMIN_PORT=${PANEL_ADMIN_PORT}
+    entrypoint: ['./entrypoint.sh']
+  mysql:
+    image: mysql:8.0.32
+    container_name: ${MYSQL_CONTAINER_NAME}
+    restart: always
+    networks:
+      - digimarket 
+    volumes:
+      - ./mysql/digimarket.sql:/docker-entrypoint-initdb.d/initial.sql  
+    environment: 
+     - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "127.0.0.1:${MYSQL_PORT}:${MYSQL_PORT}"
+  panel-admin:
+    build:
+      context: ./
+      dockerfile: ./src/Dockerfile
+    container_name: panel-admin
+    restart: always
+    volumes:
+      - ./src:/src
+      - ./.env:/src/.env
+    networks:
+      - digimarket
+    ports:
+      - "127.0.0.1:${NODEJS_INSPECT}:${NODEJS_INSPECT}"
+      - "127.0.0.1:${PANEL_ADMIN_PORT}:${PANEL_ADMIN_PORT}"
+    depends_on:
+      - mysql
+    command: npm run serve         
+networks:
+  digimarket:

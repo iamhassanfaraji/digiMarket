@@ -1,0 +1,46 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql8-1875248c589-b6a8f2015df0143": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "vitrineshahre",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "vitrineshahre",
+				"url": "jdbc:mysql://localhost:3306/vitrineshahre",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"mysql8-1879a87ec91-4edab09d12ffffc": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "mysql",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "mysql",
+				"url": "jdbc:mysql://localhost:3306/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

@@ -1,0 +1,4 @@
+.git
+# node_modules    not good idea for in development mode
+.gitignore
+Dockerfile
