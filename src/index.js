@@ -8,12 +8,9 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//my middleware
-//const authentication = require('./controllers/authentication')
-// complete authentication
-//app.post('*',authentication)
+const authentication = require('./controllers/authentication')
+app.post('*',authentication)
 
-//require routes
 const product = require('./routes/product')
 const statics = require('./routes/statics')
 const user = require('./routes/user')
