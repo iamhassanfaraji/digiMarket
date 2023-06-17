@@ -121,7 +121,7 @@ class UsersController extends CoreController {
         const requestHandler = this.errorHandler(async (req, res) => {
             try {
                 const { phoneNumber, password } = req.body
-                const user = await this.model.readOne({ phone_number: phoneNumber })
+                const user = await this.model.readById({ phone_number: phoneNumber })
 
                 const selectUser = user[0]
                 const validatePassword = bcrypt.compareSync(password, selectUser.password)
@@ -133,7 +133,7 @@ class UsersController extends CoreController {
                     res.status(406).send()
                 }
             } catch (err) {
-                throw { status: 400 }
+                throw { status: 500 }
             }
         })
 
